@@ -84,8 +84,9 @@ Prebuilding locally can be beneficial for inspecting changes in config plugins a
 
 ### Running
 
-```
+```bash
 npx expo prebuild
+
 ```
 
 ### RUN
@@ -93,6 +94,7 @@ npx expo prebuild
 Executing the provided commands will prebuild and run your application. It's important to note that push notifications will not function in the iOS Simulator.
 
 ```bash
+
 # Build and run your native iOS project
 npx expo run:ios
 
