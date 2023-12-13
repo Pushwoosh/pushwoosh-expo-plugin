@@ -6,4 +6,3 @@ Expo Pushwoosh Push Notifications module
 [![license](https://img.shields.io/npm/l/pushwoosh-react-native-plugin.svg)]()
 
 ![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-yellowgreen.svg)
-| ----------------------------------------------------------- | ------------------------------- | -------------------------------------------------------------------- |
