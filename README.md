@@ -26,7 +26,7 @@ npm install pushwoosh-react-native-plugin
 ```
 
 ### CONFIGURATION IN app.json / app.config.js
-##
+## 
 ### Plugin
 
 Add the plugin to the front of the plugin array.
