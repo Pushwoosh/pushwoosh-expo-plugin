@@ -1,0 +1,42 @@
+{
+    "name": "pushwoosh-expo-plugin",
+    "version": "1.0.0",
+    "description": "Pushwoosh Expo config plugin",
+    "main": "./app.plugin.js",
+    "scripts": {
+        "build": "tsc --build plugin",
+        "clean": "expo-module clean",
+        "lint": "expo-module lint",
+        "test": "expo-module test",
+        "prepare": "expo-module clean && tsc --build plugin",
+        "expo-module": "expo-module"
+    },
+    "keywords": [
+        "react-native",
+        "expo",
+        "notifications",
+        "pushwosh"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Pushwoosh/pushwoosh-expo-plugin.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Pushwoosh/pushwoosh-expo-plugin/issues"
+    },
+    "author": "Pushwoosh",
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "homepage": "https://github.com/Pushwoosh/pushwoosh-expo-plugin",
+    "dependencies": {
+        "@expo/config-plugins": "^7.2.5",
+        "@expo/image-utils": "^0.3.22"
+    },
+    "devDependencies": {
+        "@types/react-native": "^0.72.8",
+        "expo-module-scripts": "~3.0.12"
+    },
+    "peerDependencies": {
+        "expo": "*"
+    }
+}
