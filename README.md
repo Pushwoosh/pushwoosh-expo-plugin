@@ -44,9 +44,7 @@ Add the plugin to the front of the plugin array.
 }
 
 ```
-
-Plugin Prop
-
+### Plugin Prop
 You can pass props to the plugin config object to configure:
 
 | Plugin props |              |                                                                               |
