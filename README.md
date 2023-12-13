@@ -31,7 +31,7 @@ npm install pushwoosh-react-native-plugin
 
 Add the plugin to the front of the plugin array.
 
-```
+```javascript
 {
   "plugins": [
     [
