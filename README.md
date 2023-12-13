@@ -17,7 +17,7 @@ Expo Pushwoosh Push Notifications module
 
 You need both the `pushwoosh-expo-plugin` and the `pushwoosh-react-native-plugin` npm package.
 
-```
+```bash
 npx expo install pushwoosh-expo-plugin
 
 # npm
