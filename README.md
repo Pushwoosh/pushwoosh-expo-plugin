@@ -8,3 +8,5 @@ Expo Pushwoosh Push Notifications module
 ![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-yellowgreen.svg)
 
 ### Supported environments:
+
+* The Expo run commands (expo run:[android|ios])
