@@ -1,7 +1,7 @@
 Expo Pushwoosh Push Notifications module
 ===================================================
 
-[![GitHub release](https://img.shields.io/github/release/Pushwoosh/pushwoosh-expo-plugin.svg?style=flat-square)](https://img.shields.io/github/release/Pushwoosh/pushwoosh-expo-plugin.svg?style=flat-square)
+[![GitHub release](https://img.shields.io/github/release/Pushwoosh/pushwoosh-expo-plugin.svg?style=flat-square)](https://github.com/Pushwoosh/pushwoosh-react-native-plugin/releases)
 [![npm](https://img.shields.io/npm/v/pushwoosh-expo-plugin.svg)](https://www.npmjs.com/package/pushwoosh-expo-plugin)
 [![license](https://img.shields.io/npm/l/pushwoosh-expo-plugin.svg)]()
 
