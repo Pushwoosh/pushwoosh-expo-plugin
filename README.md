@@ -106,5 +106,5 @@ npx expo run:android
 
 ### LICENCE
 
-Copyright © 2023 [Pushwoosh](https://github.com/Pushwoosh).
+Copyright © 2024 [Pushwoosh](https://github.com/Pushwoosh).
 This project is [MIT](https://github.com/Pushwoosh/pushwoosh-expo-plugin/blob/main/LICENSE) licensed.
