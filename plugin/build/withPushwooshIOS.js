@@ -19,13 +19,13 @@ const withCapabilities = (config, props) => {
 };
 const withAPNSEnvironment = (config, props) => {
     return (0, config_plugins_1.withEntitlementsPlist)(config, (plist) => {
-        plist.modResults['aps-environment'] = props.mode;
+        plist.modResults['aps-environment'] = props.mode || "development";
         return plist;
     });
 };
 const withPushwooshIOS = (config, props) => {
     config = withCapabilities(config, props);
-    config = withAPNSEnvironment(config, props);
+   config = withAPNSEnvironment(config, props);
     return config;
 };
 exports.withPushwooshIOS = withPushwooshIOS;
