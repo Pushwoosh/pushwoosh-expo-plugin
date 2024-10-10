@@ -10,6 +10,10 @@ const withCapabilities = (config, props) => {
         if (!plist.modResults.UIBackgroundModes.includes("remote-notification")) {
             plist.modResults.UIBackgroundModes.push("remote-notification");
         }
+        // Adding Pushwoosh-specific keys
+        plist.modResults["Pushwoosh_APPID"] = props.PW_APP_ID || "XXXXX-XXXXX";
+        plist.modResults["PW_API_TOKEN"] = props.PW_API_TOKEN || "XXXXX";
+        plist.modResults["LOG_LEVEL"] = props.LOG_LEVEL || "DEBUG";
         return plist;
     });
 };
