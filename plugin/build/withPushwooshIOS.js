@@ -10,18 +10,22 @@ const withCapabilities = (config, props) => {
         if (!plist.modResults.UIBackgroundModes.includes("remote-notification")) {
             plist.modResults.UIBackgroundModes.push("remote-notification");
         }
+        // Adding Pushwoosh-specific keys
+        plist.modResults["Pushwoosh_APPID"] = props.PW_APP_ID || "XXXXX-XXXXX";
+        plist.modResults["PW_API_TOKEN"] = props.PW_API_TOKEN || "XXXXX";
+        plist.modResults["LOG_LEVEL"] = props.LOG_LEVEL || "DEBUG";
         return plist;
     });
 };
 const withAPNSEnvironment = (config, props) => {
     return (0, config_plugins_1.withEntitlementsPlist)(config, (plist) => {
-        plist.modResults['aps-environment'] = props.mode;
+        plist.modResults['aps-environment'] = props.mode || "development";
         return plist;
     });
 };
 const withPushwooshIOS = (config, props) => {
     config = withCapabilities(config, props);
-    config = withAPNSEnvironment(config, props);
+   config = withAPNSEnvironment(config, props);
     return config;
 };
 exports.withPushwooshIOS = withPushwooshIOS;
