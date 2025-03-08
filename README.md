@@ -45,12 +45,58 @@ Add the plugin to the front of the plugin array.
 
 ```
 ### Plugin Prop
-You can pass props to the plugin config object to configure:
+You can pass prop to the plugin config object to configure:
 
-| Plugin props |              |                                                                               |
+| Plugin prop |              |                                                                               |
 |--------------|--------------|-------------------------------------------------------------------------------|
 | `mode`       | **required** | Used to configure [APNs environment](https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment) entitlement. "development" or "production" |
 
+#### iOS Props
+The following props can be configured under the `ios` key:
+
+| iOS props | Required | Default | Description |
+|-----------|----------|---------|-------------|
+| `PW_API_TOKEN` | Yes | `__YOUR_API_TOKEN__` | Your Pushwoosh API token for iOS. You can get the API token in the Pushwoosh control panel (Select an app -> "Settings" -> "API access" |
+| `Pushwoosh_LOG_LEVEL` | No | `INFO` | Log level for iOS. Possible values: `NONE`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `NOISE` |
+
+> **Note**: Remote notifications in Background Modes are automatically configured in the Signing & Capabilities section through the `withEntitlementsPlist` function. You don't need to manually configure this in Info.plist.
+
+#### Android Props
+The following props can be configured under the `android` key:
+
+| Android props | Required | Default | Description |
+|---------------|----------|---------|-------------|
+| `apiToken` | Yes | `__YOUR_API_TOKEN__` | Your Pushwoosh API token for Android. You can get the API token in the Pushwoosh control panel (Select an app -> "Settings" -> "API access" |
+| `logLevel` | No | `INFO` | Log level for Android. One of: `NONE`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `NOISE` |
+| `multiNotificationMode` | No | `true` | Can be changed to false in case you want to display only the last notification for the user |
+| `icon` | No | - | Path to a custom notification icon for Android |
+
+### Example Configuration
+Here's an example of how to configure the plugin in your `app.json`:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "pushwoosh-expo-plugin",
+        {
+          "mode": "development",
+          "ios": {
+            "PW_API_TOKEN": "YOUR_API_TOKEN",
+            "Pushwoosh_LOG_LEVEL": "DEBUG"
+          },
+          "android": {
+            "apiToken": "YOUR_API_TOKEN",
+            "logLevel": "DEBUG",
+            "icon": "./assets/notification-icon.png"
+          }
+        }
+      ]
+    ]
+  }
+}
+```
 
 ### Initialize Pushwoosh
 
