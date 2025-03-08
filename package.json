@@ -35,5 +35,12 @@
     },
     "peerDependencies": {
         "expo": "*"
+    },
+    "expo": {
+        "doctor": {
+            "reactNativeDirectoryCheck": {
+                "listUnknownPackages": false
+            }
+        }
     }
 }
