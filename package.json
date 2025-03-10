@@ -1,6 +1,6 @@
 {
     "name": "pushwoosh-expo-plugin",
-    "version": "1.0.2",
+    "version": "2.0.1",
     "description": "Pushwoosh Expo config plugin",
     "main": "./app.plugin.js",
     "scripts": {
