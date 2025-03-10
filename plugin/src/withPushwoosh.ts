@@ -6,26 +6,36 @@ import { withPushwooshIOS } from './withPushwooshIOS';
 const pkg = require('pushwoosh-expo-plugin/package.json');
 
 export type PushwooshAndroidPluginProps = {
-    icon: string;
+    icon?: string;
+    apiToken?: string;
+    logLevel?: 'NONE' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'NOISE';
+    multiNotificationMode?: boolean;
 };
 
 export type PushwooshIOSPluginProps = {
-    mode: 'development' | 'production';
+    PW_API_TOKEN?: string;
+    Pushwoosh_LOG_LEVEL?: 'NONE' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'NOISE';
 }
 
 export type PushwooshPluginProps = {
+    mode: 'development' | 'production';
     android?: PushwooshAndroidPluginProps;
     ios?: PushwooshIOSPluginProps;
 };
 
 const withPushwoosh: ConfigPlugin<PushwooshPluginProps> = (config, props) => {
-  if (props && props.android) {
-    config = withPushwooshAndroid(config, props.android);
-  }
+  config = withPushwooshAndroid(config, {
+    apiToken: props?.android?.apiToken,
+    logLevel: props?.android?.logLevel,
+    multiNotificationMode: true,
+    icon: props?.android?.icon
+  });
   
-  if (props && props.ios) {
-    config = withPushwooshIOS(config, props.ios);
-  }
+  config = withPushwooshIOS(config, {
+    PW_API_TOKEN: props?.ios?.PW_API_TOKEN,
+    Pushwoosh_LOG_LEVEL: props?.ios?.Pushwoosh_LOG_LEVEL,
+    mode: props.mode
+  });
   return config;
 };
 

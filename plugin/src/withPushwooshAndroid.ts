@@ -1,5 +1,6 @@
 import {
     ConfigPlugin,
+    withAndroidManifest,
     withDangerousMod,
     withProjectBuildGradle
 } from '@expo/config-plugins';
@@ -17,8 +18,8 @@ const iconSizeMap: Record<string, number> = {
   xxxhdpi: 96,
 };
 
-async function writeNotificationIconImageFilesAsync(props: PushwooshAndroidPluginProps, projectRoot: string) {
-  const fileName = basename(props.icon)
+async function writeNotificationIconImageFilesAsync(icon: string, projectRoot: string) {
+  const fileName = basename(icon)
   await Promise.all(
     Object.entries(iconSizeMap).map(async (entry) => {
       const iconSizePx = entry[1]
@@ -34,7 +35,7 @@ async function writeNotificationIconImageFilesAsync(props: PushwooshAndroidPlugi
       };
 
       const imageOptions: ImageOptions = {
-        src: props.icon,
+        src: icon,
         width: iconSizePx,
         height: iconSizePx,
         resizeMode: 'cover',
@@ -51,7 +52,9 @@ const withNotificationIcons: ConfigPlugin<PushwooshAndroidPluginProps> = (config
   return withDangerousMod(config, [
     'android',
     async (config) => {
-      await writeNotificationIconImageFilesAsync(props, config.modRequest.projectRoot);
+      if (props.icon) {
+        await writeNotificationIconImageFilesAsync(props.icon, config.modRequest.projectRoot);
+      }
       return config;
     },
   ]);
@@ -71,8 +74,58 @@ const withCompileSDKVersionFix: ConfigPlugin<PushwooshAndroidPluginProps> = (con
   });
 };
 
+const withManifestConfig: ConfigPlugin<PushwooshAndroidPluginProps> = (config, props) => {
+  return withAndroidManifest(config, config => {
+    const application = config.modResults.manifest.application;
+    if (!application?.[0]) return config;
+
+    const metaDataArray = application[0]['meta-data'] = application[0]['meta-data'] || [];
+    
+    const entries = [
+      {
+        name: 'com.pushwoosh.apitoken',
+        value: props?.apiToken || '__YOUR_API_TOKEN__'
+      },
+      {
+        name: 'com.pushwoosh.log_level',
+        value: props?.logLevel || 'INFO'
+      },
+      {
+        name: 'com.pushwoosh.multi_notification_mode',
+        value: 'true'
+      }
+    ];
+
+    entries.forEach(entry => {
+      const metaData = {
+        $: {
+          'android:name': entry.name,
+          'android:value': entry.value
+        }
+      };
+      
+      const existingIndex = metaDataArray.findIndex(
+        (item: any) => item.$['android:name'] === entry.name
+      );
+      
+      if (existingIndex !== -1) {
+        metaDataArray[existingIndex] = metaData;
+      } else {
+        metaDataArray.push(metaData);
+      }
+    });
+
+    return config;
+  });
+};
+
 export const withPushwooshAndroid: ConfigPlugin<PushwooshAndroidPluginProps> = (config, props) => {  
   config = withCompileSDKVersionFix(config, props);
-  config = withNotificationIcons(config, props);
+  config = withManifestConfig(config, props);
+  
+  if (props?.icon) {
+    config = withNotificationIcons(config, props);
+  }
+  
   return config;
 };
