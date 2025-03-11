@@ -1,6 +1,6 @@
 {
     "name": "pushwoosh-expo-plugin",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Pushwoosh Expo config plugin",
     "main": "./app.plugin.js",
     "scripts": {
@@ -31,7 +31,8 @@
         "@expo/image-utils": "^0.3.22"
     },
     "devDependencies": {
-        "expo-module-scripts": "~4.0.4"
+        "expo-module-scripts": "~4.0.4",
+        "typescript": "^5.8.2"
     },
     "peerDependencies": {
         "expo": "*"
