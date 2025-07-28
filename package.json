@@ -28,7 +28,7 @@
     "readmeFilename": "README.md",
     "homepage": "https://github.com/Pushwoosh/pushwoosh-expo-plugin",
     "dependencies": {
-        "@expo/image-utils": "^0.3.22"
+        "@expo/image-utils": "^0.5.1"
     },
     "devDependencies": {
         "expo-module-scripts": "~4.0.4",
