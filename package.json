@@ -1,6 +1,6 @@
 {
     "name": "pushwoosh-expo-plugin",
-    "version": "2.0.4",
+    "version": "2.0.6",
     "description": "Pushwoosh Expo config plugin",
     "main": "./app.plugin.js",
     "scripts": {
@@ -28,7 +28,7 @@
     "readmeFilename": "README.md",
     "homepage": "https://github.com/Pushwoosh/pushwoosh-expo-plugin",
     "dependencies": {
-        "@expo/image-utils": "^0.5.1"
+        "@expo/image-utils": ">=0.5.1"
     },
     "devDependencies": {
         "expo-module-scripts": "~4.0.4",

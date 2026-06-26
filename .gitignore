@@ -33,3 +33,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# plugin build output (keep out of GitHub mirror; npm uses .npmignore instead)
+plugin/build/
