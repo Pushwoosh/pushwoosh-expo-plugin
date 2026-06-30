@@ -1,7 +1,7 @@
 Expo Pushwoosh Push Notifications module
 ===================================================
 
-[![GitHub release](https://img.shields.io/github/release/Pushwoosh/pushwoosh-expo-plugin.svg?style=flat-square)](https://github.com/Pushwoosh/pushwoosh-react-native-plugin/releases)
+[![GitHub release](https://img.shields.io/github/release/Pushwoosh/pushwoosh-expo-plugin.svg?style=flat-square)](https://github.com/Pushwoosh/pushwoosh-expo-plugin/releases)
 [![npm](https://img.shields.io/npm/v/pushwoosh-expo-plugin.svg)](https://www.npmjs.com/package/pushwoosh-expo-plugin)
 [![license](https://img.shields.io/npm/l/pushwoosh-expo-plugin.svg)]()
 
@@ -15,14 +15,11 @@ Expo Pushwoosh Push Notifications module
 
 ### INSTALL
 
-You need both the `pushwoosh-expo-plugin` and the `pushwoosh-react-native-plugin` npm package.
+You need both packages: `pushwoosh-expo-plugin` (the config plugin, applied at prebuild)
+and `pushwoosh-react-native-plugin` (the runtime SDK you call from JS).
 
 ```bash
-npx expo install pushwoosh-expo-plugin
-
-# npm
-npm install pushwoosh-react-native-plugin
-
+npx expo install pushwoosh-expo-plugin pushwoosh-react-native-plugin
 ```
 
 ### CONFIGURATION IN app.json / app.config.js
@@ -49,7 +46,7 @@ You can pass prop to the plugin config object to configure:
 
 | Plugin prop |              |                                                                               |
 |--------------|--------------|-------------------------------------------------------------------------------|
-| `mode`       | **required** | Used to configure [APNs environment](https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment) entitlement. "development" or "production" |
+| `mode`       | **required** | iOS only — configures the [APNs environment](https://developer.apple.com/documentation/bundleresources/entitlements/aps-environment) entitlement. `"development"` or `"production"`. Has no effect on Android. |
 
 #### iOS Props
 The following props can be configured under the `ios` key:
@@ -98,24 +95,52 @@ Here's an example of how to configure the plugin in your `app.json`:
 }
 ```
 
+### Android: Firebase (FCM) setup
+
+Android delivery goes through Firebase Cloud Messaging, so the app needs a
+`google-services.json`. The config plugin does **not** add it for you:
+
+1. In the [Firebase console](https://console.firebase.google.com/) open (or create) the
+   project whose FCM credentials are connected to your Pushwoosh app
+   (Pushwoosh control panel → your app → Android/Firebase configuration).
+2. Register an Android app in that Firebase project whose **package name matches** the
+   `android.package` you use in `app.json`, then download its `google-services.json`.
+3. Put the file in your project and point Expo at it via `android.googleServicesFile`:
+
+```json
+{
+  "expo": {
+    "android": {
+      "package": "com.yourcompany.yourapp",
+      "googleServicesFile": "./google-services.json"
+    }
+  }
+}
+```
+
+During `expo prebuild` Expo copies the file into the native project and applies the
+`com.google.gms.google-services` Gradle plugin automatically. Without it Firebase cannot
+initialize, no push token is registered, and notifications silently never arrive.
+
+On Android 13+ the SDK requests the `POST_NOTIFICATIONS` runtime permission on first launch.
+
 ### Initialize Pushwoosh
 
 ```javascript
 import Pushwoosh from 'pushwoosh-react-native-plugin';
-
 ```
 
 ```javascript
-
-Pushwoosh.init({ 
-    "pw_appid" : "YOUR_PUSHWOOSH_PROJECT_ID" , 
-    "project_number" : "YOUR_GCM_PROJECT_NUMBER" 
-});
+// pw_appid — your Pushwoosh Application Code (e.g. "XXXXX-XXXXX"),
+// from the Pushwoosh control panel → your app → Settings.
+Pushwoosh.init({ pw_appid: 'YOUR_PUSHWOOSH_APP_CODE' });
 Pushwoosh.register();
-
 ```
 
-See [Pushwoosh React Native](https://docs.pushwoosh.com/platform-docs/pushwoosh-sdk/cross-platform-frameworks/react-native/integrating-react-native-plugin) integration
+> The FCM Sender ID is read from `google-services.json` (Android) — do **not** pass a
+> `project_number` to `init`; that legacy GCM parameter is no longer used.
+
+See the [Pushwoosh React Native](https://docs.pushwoosh.com/platform-docs/pushwoosh-sdk/cross-platform-frameworks/react-native/integrating-react-native-plugin) integration guide for the full JS API.
 
 ##
 ### Prebuild (optional)
